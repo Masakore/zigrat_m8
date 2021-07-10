@@ -51,9 +51,6 @@ class Transaction:
         for utxo in self.utxos:
             balance = balance + utxo.message
         amount_enough = balance == spent
-        for utxo in self.utxos:
-            if not utxo.is_valid():
-                return False
         return signature_valid and amount_enough
 
 class UnsignedTransaction:
