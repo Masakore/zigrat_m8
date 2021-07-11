@@ -6,13 +6,6 @@ from Genesis import genesis_coinbase
 from Transaction import Transaction
 from UTXO import UTXO
 
-the_blockchain = None
-def get_blockchain():
-    global the_blockchain
-    if the_blockchain == None:
-        the_blockchain = Blockchain()
-    return the_blockchain
-
 class Blockchain:
     def __init__(self):
         self.blocks = [Block("ZEvMflZDcwQJmarInnYi88px+6HZcv2Uoxw7+/JOOTg=",
@@ -44,12 +37,14 @@ class Blockchain:
         utxos = []
         for block in self.blocks:
             for tx in block.transactions:
+                print('===========', tx)
                 counter = 0
                 for pk in tx.receiver_public_keys:
                     if pk in public_key:
+                        print('=========================AMOUNT==', tx.messages[counter])
                         utxo = UTXO(tx.get_hash(), public_key, tx.messages[counter])
                         utxos.append(utxo)
-                    counter = counter + 1
+                    # counter = counter + 1
         return utxos
 
     def get_topmost_block(self):
@@ -65,6 +60,8 @@ class Blockchain:
                     for pk in tx.receiver_public_keys:
                         if pk in UTXO.public_key:
                             if UTXO.message == tx.messages[counter]:
+                                print('======================VALIDE TRUE is called')
+
                                 valid = True
                         counter = counter + 1
         if valid == False:
@@ -72,9 +69,11 @@ class Blockchain:
         #check double_spending
         for block in self.blocks:
             for tx in block.transactions:
+                print('=====トランザクションお主る', tx)
                 if isinstance(tx, Transaction):
                     for tx_utxo in tx.utxos:
                         if tx_utxo.get_hash() == UTXO.get_hash():
+                            print('======================Double spending CALLED=====')
                             return False
         return True
 
