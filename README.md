@@ -1,5 +1,6 @@
 Simple Blockchain Implementation for Blockchain Global Master M8 End Project
 -----
+**This project is on [my github](https://github.com/Masakore/zigrat_m8)**
 
 ## 1. Introduction
 Through the M8 program, I learned the basic components of blockchain(i.e., crypto graphy, blocks, wallets, utxo, mining) and implemented them in a simple way. 
