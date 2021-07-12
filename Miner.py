@@ -5,9 +5,11 @@ from Transaction import Coinbase, Transaction
 import random
 from CONFIG import *
 
+# moved the cache to BlockchainServer.py
 class Miner:
     def __init__(self, own_public_key):
         self.public_key = own_public_key
+        # Todo: makes the mining automatic. Currently
         # self.mine()
         # while True:
         #     self.mine()

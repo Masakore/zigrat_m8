@@ -7,12 +7,19 @@ from Wallet import Wallet
 app = Flask(__name__, template_folder='./templates')
 cache = {}
 
+"""
+Serve a request from frontend
+"""
 @app.route('/<init_id>')
 def index(init_id):
   return render_template('./index.html', init_id=init_id)
 
 @app.route('/wallet', methods=['GET', 'POST'])
 def create_wallet():
+  """
+  GET: return a wallet if there's a matching wallet 
+  wallet id is required
+  """
   if request.method == 'GET':
     required = ['wallet_id']
     if not all(k in request.args for k in required):
@@ -32,6 +39,10 @@ def create_wallet():
     print(cache)
     return jsonify(response), 200 
 
+  """
+  POST: create a new wallet
+  wallet id is required
+  """
   if request.method == 'POST':
     request_json = request.json
     required = ['wallet_id']
@@ -53,6 +64,10 @@ def create_wallet():
 
 @app.route('/send_money', methods=['POST'])
 def send_money():
+  """
+  Send money to a recipient public key
+  recipient public key, message, and wallet id are required
+  """
   request_json = request.json
   required = (
       'recipient_public_key',
@@ -70,6 +85,7 @@ def send_money():
       'password': wallet.password
   }
 
+  # Call wallet server's transfer api
   response = requests.post(
       urllib.parse.urljoin(app.config['gw'], 'transfer'),
       json=data, timeout=3)
@@ -80,6 +96,10 @@ def send_money():
 
 @app.route('/get_balance', methods=['POST'])
 def get_balance():
+  """
+  Get balance of a wallet
+  wallet id is required
+  """
   request_json = request.json
   required = ['wallet_id']
   if not all(k in request_json for k in required):
@@ -88,6 +108,7 @@ def get_balance():
   wallet_id = request_json['wallet_id']
   wallet = cache[wallet_id]
 
+  # Get a wallet balance through wallet server
   response = requests.get(
       urllib.parse.urljoin(app.config['gw'], 'balance'),
       {
@@ -103,7 +124,9 @@ def get_balance():
 if __name__ == '__main__':
   from argparse import ArgumentParser
   parser = ArgumentParser()
+  # set default port
   parser.add_argument('-p', '--port', default=8080, type=int, help='port to listen on')
+  # set default url of a blockchain server
   parser.add_argument('-g', '--gw', default='http://127.0.0.1:5000', type=str, help='blockchain gateway')
   args = parser.parse_args()
   port = args.port

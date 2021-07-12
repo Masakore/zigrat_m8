@@ -2,6 +2,7 @@ from Transaction import Coinbase
 import os, json
 import crypto
 
+# load the save key for the creator who will receive mining rewards
 def load_from_file():
     with open("private_key.json", "r") as input_file:
         data = json.loads(input_file.read())

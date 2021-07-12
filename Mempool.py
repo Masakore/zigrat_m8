@@ -1,5 +1,6 @@
 from Transaction import Transaction
 
+# moved the cache to BlockchainServer.py
 class Mempool:
     def __init__(self):
         self.tx = []
