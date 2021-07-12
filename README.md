@@ -2,9 +2,8 @@ Simple Blockchain Implementation for Blockchain Global Master M8 End Project
 -----
 
 ## 1. Introduction
-Through the M8 program, I learned the basic components of blockchain(i.e., crypto graphy, blocks, wallets, utxo, mining) and implemented them in a simple way.  
-
-In this project, I added 
+Through the M8 program, I learned the basic components of blockchain(i.e., crypto graphy, blocks, wallets, utxo, mining) and implemented them in a simple way. 
+In this project, I added Flask to simulate interaction between blockchain and wallet interface.  
 
 ## 2. Main Files: Project Structure
 
@@ -50,34 +49,31 @@ python3 WalletServer.py
 
 4. **Create a creator's wallet:**  
 Create a creator's wallet having the initial coinbase rewards.  
-```
 Open 127.0.0.1:8080/creator on your browser  
-```
 You will see the following page and hit the "Get Balance" button on the screen
 
 5. **Create a recipient's wallet:**  
 Create another wallet so that you can transfer a value from the creator's wallet.  
-```
 Open 127.0.0.1:8080/<any wallet id (i.e., wallet_1)> on your browser  
-```
 
 6. **Transfer a value from the creator's wallet to the one created in step 5:**  
 Copy the public key of the recipient's wallet and Paster it in the creator's  
-Enter 50 in the amount.
-And hit "" button.
+Enter 50 in Amount.  
+And hit *Send* button.
 
 7. **Run mining:**  
-Open the recipient's wallet and hit the 
-```
+Open the recipient's wallet and hit *Send* button
 Open 127.0.0.1:5000/mine on your browser  
+Then, See the following message returned  
 ```
-See the following message returned.
-
-```
+{
+  "message": "success"
+}
 ```
 
 8. **Check the balance of recipient's wallet:**  
-Open the recipient's wallet and hit the 
+Open the recipient's wallet and hit *Get Balance* button
+
 
 ## 4. Changes I made
 
